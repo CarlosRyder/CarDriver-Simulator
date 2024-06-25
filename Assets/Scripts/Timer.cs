@@ -1,13 +1,15 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float initialTime = 60f; // Tiempo inicial en segundos
+    public float initialTime = 60f; 
     private float currentTime;
-    public TextMeshProUGUI timerText; // Referencia al componente de texto de UI para mostrar el tiempo
+    public TextMeshProUGUI timerText; 
     private bool timerIsRunning = false;
+    public GameObject[] objectsToActivateOnTimerZero; 
+    public GameObject[] objectsToDeactivateOnTimerZero;
+    private bool timerActive;
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class Timer : MonoBehaviour
 
     void UpdateTimerDisplay(float timeToDisplay)
     {
-        timeToDisplay += 1; // Para redondear el tiempo correctamente
+        timeToDisplay += 1; 
 
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
@@ -46,6 +48,17 @@ public class Timer : MonoBehaviour
 
     void OnTimerEnd()
     {
-        Debug.Log("Timer has ended.");
+        timerActive = false;
+
+        foreach (GameObject obj in objectsToActivateOnTimerZero)
+        {
+            obj.SetActive(true);
+        }
+
+        foreach (GameObject obj in objectsToDeactivateOnTimerZero)
+        {
+            obj.SetActive(false);
+        }
+
     }
 }

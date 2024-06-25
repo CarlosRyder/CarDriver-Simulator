@@ -5,6 +5,9 @@ public class PlayerHealth : MonoBehaviour
     public int maxLives = 3;
     private int currentLives;
 
+    public GameObject[] objectsToActivateOnZeroLives;
+    public GameObject[] objectsToDeactivateOnZeroLives;
+
     private void Start()
     {
         currentLives = maxLives;
@@ -28,8 +31,23 @@ public class PlayerHealth : MonoBehaviour
 
             if (currentLives <= 0)
             {
-                Debug.Log("Game Over");
+                OnZeroLives();
             }
+        }
+    }
+
+    private void OnZeroLives()
+    {
+        Debug.Log("Game Over");
+
+        foreach (GameObject obj in objectsToActivateOnZeroLives)
+        {
+            obj.SetActive(true);
+        }
+
+        foreach (GameObject obj in objectsToDeactivateOnZeroLives)
+        {
+            obj.SetActive(false);
         }
     }
 }

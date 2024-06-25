@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     public TextMeshProUGUI collectablesText;
     public TextMeshProUGUI livesText;
+    public GameObject[] objectsToActivateOnCollectables10;
+    public GameObject[] objectsToDeactivateOnCollectables10;
 
     private void Awake()
     {
@@ -28,6 +30,26 @@ public class UIManager : MonoBehaviour
     public void UpdateCollectablesText()
     {
         collectablesText.text = " " + Collectable.totalCollectables;
+
+        // Verificar si totalCollectables llegó a 10
+        if (Collectable.totalCollectables >= 10)
+        {
+            OnCollectables10();
+        }
+    }
+
+    private void OnCollectables10()
+    {
+
+        foreach (GameObject obj in objectsToActivateOnCollectables10)
+        {
+            obj.SetActive(true);
+        }
+
+        foreach (GameObject obj in objectsToDeactivateOnCollectables10)
+        {
+            obj.SetActive(false);
+        }
     }
 
     public void UpdateLivesText(int lives)
@@ -35,3 +57,4 @@ public class UIManager : MonoBehaviour
         livesText.text = "" + lives;
     }
 }
+
