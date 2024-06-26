@@ -1,37 +1,33 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CameraRaycast : MonoBehaviour
 {
     public Transform player; 
     public LayerMask layerMask; 
-    private Renderer lastRenderer; 
+    private List<Renderer> lastRenderers = new List<Renderer>(); 
 
     void Update()
     {
         Vector3 direction = player.position - transform.position;
         Ray ray = new Ray(transform.position, direction);
-        RaycastHit hit;
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(ray, direction.magnitude, layerMask);
 
-        if (Physics.Raycast(ray, out hit, direction.magnitude, layerMask))
+        foreach (Renderer renderer in lastRenderers)
+        {
+            ResetTransparency(renderer);
+        }
+
+        lastRenderers.Clear();
+
+        foreach (RaycastHit hit in hits)
         {
             Renderer hitRenderer = hit.collider.GetComponent<Renderer>();
-
             if (hitRenderer != null)
             {
-                if (lastRenderer != null && lastRenderer != hitRenderer)
-                {
-                    ResetTransparency(lastRenderer);
-                }
                 ChangeTransparency(hitRenderer);
-                lastRenderer = hitRenderer;
-            }
-        }
-        else
-        {
-            if (lastRenderer != null)
-            {
-                ResetTransparency(lastRenderer);
-                lastRenderer = null;
+                lastRenderers.Add(hitRenderer);
             }
         }
     }
@@ -40,7 +36,7 @@ public class CameraRaycast : MonoBehaviour
     {
         Material material = renderer.material;
         Color color = material.color;
-        color.a = 0.3f;
+        color.a = 0.3f; 
         material.color = color;
         material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
@@ -55,7 +51,7 @@ public class CameraRaycast : MonoBehaviour
     {
         Material material = renderer.material;
         Color color = material.color;
-        color.a = 1f;
+        color.a = 1f; 
         material.color = color;
         material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
         material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
@@ -66,4 +62,3 @@ public class CameraRaycast : MonoBehaviour
         material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
     }
 }
-

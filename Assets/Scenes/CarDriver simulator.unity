@@ -11156,8 +11156,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialTime: 60
   timerText: {fileID: 797134340}
-  objectsToActivateOnTimerZero: []
-  objectsToDeactivateOnTimerZero: []
+  objectsToActivateOnTimerZero:
+  - {fileID: 206261659}
+  - {fileID: 2088679253}
+  - {fileID: 786552484}
+  objectsToDeactivateOnTimerZero:
+  - {fileID: 1965890937}
+  - {fileID: 546547126}
+  - {fileID: 107893313}
 --- !u!114 &2088679259
 MonoBehaviour:
   m_ObjectHideFlags: 0
