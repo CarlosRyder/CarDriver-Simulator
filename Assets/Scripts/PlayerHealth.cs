@@ -6,17 +6,25 @@ public class PlayerHealth : MonoBehaviour
     private int currentLives;
     public GameObject[] objectsToActivateOnZeroLives;
     public GameObject[] objectsToDeactivateOnZeroLives;
+    private AudioSource carAudioSource;
+    public AudioClip carCrashingClip;
 
     private void Start()
     {
         currentLives = maxLives;
         UIManager.Instance.UpdateLivesText(currentLives);
+        carAudioSource = GetComponent<AudioSource>();
+        if (carAudioSource == null)
+        {
+            carAudioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
+            PlayCarCrashingSound();
             LoseLife();
         }
     }
@@ -37,16 +45,36 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnZeroLives()
     {
-        Debug.Log("Game Over");
-
         foreach (GameObject obj in objectsToActivateOnZeroLives)
         {
-            obj.SetActive(true);
+            if (obj != null)
+            {
+                obj.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("Object reference is null.");
+            }
         }
 
         foreach (GameObject obj in objectsToDeactivateOnZeroLives)
         {
-            obj.SetActive(false);
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("Object reference is null.");
+            }
+        }
+    }
+
+    private void PlayCarCrashingSound()
+    {
+        if (carAudioSource != null && carCrashingClip != null)
+        {
+            carAudioSource.PlayOneShot(carCrashingClip);
         }
     }
 }
