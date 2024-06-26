@@ -16,12 +16,11 @@ public class CarController : MonoBehaviour
     {
         movX = Input.GetAxis("Horizontal");
         movZ = Input.GetAxis("Vertical");
-
         movement = transform.forward * movZ;
-    }
+    } 
+
     private void FixedUpdate()
     {
-
         if (movX != 0 || movZ != 0)
         {
             playerRigidbody.MovePosition(transform.position + movement * Time.deltaTime * speed);

@@ -4,7 +4,6 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxLives = 3;
     private int currentLives;
-
     public GameObject[] objectsToActivateOnZeroLives;
     public GameObject[] objectsToDeactivateOnZeroLives;
 

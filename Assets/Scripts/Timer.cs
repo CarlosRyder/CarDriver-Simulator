@@ -59,6 +59,5 @@ public class Timer : MonoBehaviour
         {
             obj.SetActive(false);
         }
-
     }
 }

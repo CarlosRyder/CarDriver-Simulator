@@ -15,9 +15,7 @@ public class Collectable : MonoBehaviour
     private void CollectTarget()
     {
         totalCollectables++;
-
         Destroy(gameObject);
-
         UIManager.Instance.UpdateCollectablesText();
     }
 }

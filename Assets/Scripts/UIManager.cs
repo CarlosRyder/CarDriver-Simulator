@@ -31,7 +31,6 @@ public class UIManager : MonoBehaviour
     {
         collectablesText.text = " " + Collectable.totalCollectables;
 
-        // Verificar si totalCollectables llegó a 10
         if (Collectable.totalCollectables >= 10)
         {
             OnCollectables10();
