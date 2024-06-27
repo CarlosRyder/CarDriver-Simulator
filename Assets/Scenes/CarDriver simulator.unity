@@ -3152,8 +3152,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.4279985, y: 3.3433318, z: 8.696085}
-  m_Center: {x: 0.4758199, y: 1.0137955, z: 0.53131104}
+  m_Size: {x: 3.8479614, y: 3.3433318, z: 7.986348}
+  m_Center: {x: 0.4234314, y: 1.0137955, z: 0.5126444}
 --- !u!114 &580354203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5715,7 +5715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 580354201}
-  layerMask:
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 1
 --- !u!65 &964798949
